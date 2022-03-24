@@ -1,0 +1,220 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="John Doe"><meta name="renderer" content="webkit"><meta name="copyright" content="John Doe"><meta name="keywords" content="Hexo"><meta name="description" content=""><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>java学习（八） · yudupefish Blog</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 6.1.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/cat.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">yudupefish</div><div class="profile-signature">There is a strong wind blowing</div><div class="friends"><div>FRIENDS</div><span><a href="//github.com/yudupefish" target="_black">github</a></span><span><a href="//bilibili.com/?spm_id_from=666.25.b_62696c692d6865616465722d6d.1" target="_black">bilibili</a></span><span><a href="//csdn.net/?spm=1001.2101.3001.4476" target="_black">CSDN</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">yudupefish Blog</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">java学习（八）</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-calendar"></i><span>2022-03-24</span></span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><h3 id="赋值运算符"><a href="#赋值运算符" class="headerlink" title="赋值运算符"></a>赋值运算符</h3><h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><p>赋值运算符就是将某个运算后的值，赋给指定的变量</p>
+<h4 id="赋值运算符的分类"><a href="#赋值运算符的分类" class="headerlink" title="赋值运算符的分类"></a>赋值运算符的分类</h4><p>基本赋值预算符：&#x3D;</p>
+<p>复合赋值运算符</p>
+<p>+&#x3D; ， -&#x3D; ， *&#x3D; ， ，&#x2F;&#x3D; , %&#x3D; 等，</p>
+<p>a +&#x3D; b;[等价a+b]</p>
+<p>a -&#x3D; b;[等价a-b]</p>
+<h4 id="赋值运算符的特点"><a href="#赋值运算符的特点" class="headerlink" title="赋值运算符的特点"></a>赋值运算符的特点</h4><p>1）运算顺序从右往左 int num &#x3D; a + b + c；</p>
+<p>2）赋值运算符的左边只能是变量，右边可以是变量、表达式、常量值 int num &#x3D; 20; int num2 &#x3D; 78 * 34 - 10; int num3 &#x3D; a;</p>
+<p>3）复合赋值运算符等价于下面的效果</p>
+<p>比如： a+&#x3D;3;等价于a&#x3D;a+3；</p>
+<p>4）符合赋值运算符会进行类型转换</p>
+<p>byte b &#x3D; 2； b+&#x3D;3；b++</p>
+<h4 id="三元运算符"><a href="#三元运算符" class="headerlink" title="三元运算符"></a>三元运算符</h4><h5 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h5><p>条件表达式？表达式1：表达式2；</p>
+<p>1.如果条件表达式为true，运算后的结果表达式1；</p>
+<p>2.如果条件表达式为false，运算后的结果表达式2；</p>
+<p>口诀：【一真二假】</p>
+<h4 id="三元运算符细节"><a href="#三元运算符细节" class="headerlink" title="三元运算符细节"></a>三元运算符细节</h4><p>1.表达式1和表达式2要为可以赋给接收变量的类型（或可以自动转换）</p>
+<p>2.三元运算符可以转换成 if——else 语句</p>
+<h4 id="例如"><a href="#例如" class="headerlink" title="例如"></a>例如</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TernaryOperatorExercise</span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//编写一个main方法</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="comment">//实现三个数的最大值</span></span><br><span class="line">		<span class="type">int</span> <span class="variable">n1</span> <span class="operator">=</span> <span class="number">55</span>;</span><br><span class="line">		<span class="type">int</span> <span class="variable">n2</span> <span class="operator">=</span> <span class="number">33</span>;</span><br><span class="line">		<span class="type">int</span> <span class="variable">n3</span> <span class="operator">=</span> <span class="number">123</span>;</span><br><span class="line">		<span class="comment">//思路</span></span><br><span class="line">		<span class="comment">//创建两个变量，先比较两个数的最大值，赋值给一个变量，</span></span><br><span class="line">		<span class="comment">//然后再用这个变量与剩下的那个数做比较，赋值给另一个变量</span></span><br><span class="line">		<span class="comment">//最后输出这个最后的那个变量</span></span><br><span class="line">		 <span class="type">int</span> <span class="variable">max1</span> <span class="operator">=</span> n1 &gt; n2? n1 : n2;</span><br><span class="line">		 <span class="type">int</span> <span class="variable">max2</span> <span class="operator">=</span> max1 &gt; n3? max1 : n3;</span><br><span class="line">		 System.out.println(<span class="string">&quot;最大值=&quot;</span> + max2);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		<span class="comment">//用一条语句实现</span></span><br><span class="line">		<span class="type">int</span> <span class="variable">max</span> <span class="operator">=</span> (n1 &gt; n2? n1 : n2) &gt; n3? (n1 &gt; n2? n1 : n2) : n3;</span><br><span class="line">		System.out.println(<span class="string">&quot;最大值=&quot;</span> + max);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h3 id="运算符的优先级"><a href="#运算符的优先级" class="headerlink" title="运算符的优先级"></a>运算符的优先级</h3><p>1.运算符有不同的优先级，所谓优先级就是表达式运算中的优先顺序。如下表，上一行运算符总优先于下一行运算符</p>
+<p>2.只有单目运算符，赋值运算时从右向左算的。</p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th>.      （)        {}       ;       ,</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">R—&gt;L</td>
+<td>++     –    ~    !(data type)</td>
+</tr>
+<tr>
+<td align="center">L—&gt;L</td>
+<td>*              &#x2F;              %</td>
+</tr>
+<tr>
+<td align="center">L—&gt;L</td>
+<td>+        -</td>
+</tr>
+<tr>
+<td align="center">L—&gt;L</td>
+<td>&lt;&lt;         &gt;&gt;         &gt;&gt;&gt;      位移</td>
+</tr>
+<tr>
+<td align="center">L—&gt;L</td>
+<td>&lt;       &gt;         &lt;&#x3D;         &gt;&#x3D;        instanceof</td>
+</tr>
+<tr>
+<td align="center">L—&gt;L</td>
+<td>&#x3D;&#x3D;           !&#x3D;&#x3D;</td>
+</tr>
+<tr>
+<td align="center">L—&gt;L</td>
+<td>&amp;</td>
+</tr>
+<tr>
+<td align="center">L—&gt;L</td>
+<td>^</td>
+</tr>
+<tr>
+<td align="center">L—&gt;L</td>
+<td>|</td>
+</tr>
+<tr>
+<td align="center">L—&gt;L</td>
+<td>&amp;&amp;</td>
+</tr>
+<tr>
+<td align="center">L—&gt;L</td>
+<td>||</td>
+</tr>
+<tr>
+<td align="center">L—&gt;L</td>
+<td>？          ：</td>
+</tr>
+<tr>
+<td align="center">R—&gt;L</td>
+<td>&#x3D;      *&#x3D;         &#x2F;&#x3D;         %&#x3D;</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>+&#x3D;     -&#x3D;         &lt;&lt;&#x3D;          &gt;&gt;&#x3D;</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>&gt;&gt;&gt;&#x3D;        &amp;&#x3D;         ^&#x3D;           |&#x3D;</td>
+</tr>
+</tbody></table>
+<h5 id="梳理小结"><a href="#梳理小结" class="headerlink" title="梳理小结"></a>梳理小结</h5><p>1）（），{}，等</p>
+<p>2）单目运算符++  –</p>
+<p>3）算数运算符</p>
+<p>4）位移运算符</p>
+<p>5）比较运算符</p>
+<p>6）逻辑运算符</p>
+<p>7）三元运算符</p>
+<p>8）赋值运算符</p>
+<h3 id="标识符的命名规则和规范"><a href="#标识符的命名规则和规范" class="headerlink" title="标识符的命名规则和规范"></a>标识符的命名规则和规范</h3><h5 id="标识符的概念"><a href="#标识符的概念" class="headerlink" title="标识符的概念"></a>标识符的概念</h5><p>1.java对各种变量、方法和类等命名时使用的字符序列称为标识符</p>
+<p>2.凡是可以起名字的地方都叫标识符如：int num1 &#x3D; 52；num1就为标识符</p>
+<h5 id="标识符的命名规则（必须遵守）"><a href="#标识符的命名规则（必须遵守）" class="headerlink" title="标识符的命名规则（必须遵守）"></a>标识符的命名规则（必须遵守）</h5><p>1.由26个英文字母的大小写，0—9，_或$组成</p>
+<p>2.数字不可以开头</p>
+<p>3.不可以使用关键字和保留字，但能包含关键字和保留字。</p>
+<p>4.java中严格区分大小写，长度无限制。</p>
+<p>5.标识符不能含有空格。</p>
+<h5 id="标识符命名的规范"><a href="#标识符命名的规范" class="headerlink" title="标识符命名的规范"></a>标识符命名的规范</h5><p>1.包名：多单词组成时所有字母都要小写：aaa.bbb.ccc 如com.yu.crm</p>
+<p>2.类名、接口名：多单词组成时，所有单词的首字母大写：XxxYyyZzz （大驼峰）如：TankShotGame</p>
+<p>3.变量名、方法名：多单词组成时，第一个首字小写，第二个单词开始每个首字母大写：xxxYyyZzz（小驼峰） 如：tankShotGame</p>
+<p>4.常量名：所有字母都大写，多单词时每个单词用下划线连接：XXX_YYY_ZZZ 如：定义一个所得税率 TAX_RATE</p>
+<p>5.后面我们学习到 类，包，接口等时，我们得命名规范要这样遵守，更加详细得看文档</p>
+<h3 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h3><p>定义：被java语言赋予了特殊含义，用做专门用途得字符串（单词）</p>
+<p>特点：关键字中所有字母都为小写</p>
+<h3 id="保留字"><a href="#保留字" class="headerlink" title="保留字"></a>保留字</h3><h5 id="介绍-1"><a href="#介绍-1" class="headerlink" title="介绍"></a>介绍</h5><p>java保留字：现有的java版本尚未使用，但以后的版本可能会作为关键字使用，自己命名标识符时要避免使用这些保留字</p>
+<p>byValue  cast  future  generic  inner operator  outer  rest  var  goto  const</p>
+</article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="http://example.com">John Doe</a></p><p> <span>Link:  </span><a href="http://example.com/2022/03/24/java%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%85%AB%EF%BC%89/">http://example.com/2022/03/24/java%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%85%AB%EF%BC%89/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-nd/3.0">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="prevSlogan" href="/2022/03/24/java%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B9%9D%EF%BC%89/" title="java学习（九）"><span>< PreviousPost</span><br><span class="prevTitle">java学习（九）</span></a><a class="nextSlogan" href="/2022/03/24/java%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%83%EF%BC%89/" title="java学习（七）"><span>NextPost ></span><br><span class="nextTitle">java学习（七）</span></a><div class="clear"></div></div><div id="comment"></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span> | theme </span><a target="_blank" rel="noopener" href="https://github.com/Longlongyu/hexo-theme-Cxo"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.</span> <span class="toc-text">赋值运算符</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-number">1.2.</span> <span class="toc-text">赋值运算符的分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-number">1.3.</span> <span class="toc-text">赋值运算符的特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E5%85%83%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.4.</span> <span class="toc-text">三元运算符</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="toc-number">1.4.1.</span> <span class="toc-text">基本语法</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E5%85%83%E8%BF%90%E7%AE%97%E7%AC%A6%E7%BB%86%E8%8A%82"><span class="toc-number">1.5.</span> <span class="toc-text">三元运算符细节</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BE%8B%E5%A6%82"><span class="toc-number">1.6.</span> <span class="toc-text">例如</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-number">2.</span> <span class="toc-text">运算符的优先级</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A2%B3%E7%90%86%E5%B0%8F%E7%BB%93"><span class="toc-number">2.0.1.</span> <span class="toc-text">梳理小结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%87%E8%AF%86%E7%AC%A6%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99%E5%92%8C%E8%A7%84%E8%8C%83"><span class="toc-number">3.</span> <span class="toc-text">标识符的命名规则和规范</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A0%87%E8%AF%86%E7%AC%A6%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">3.0.1.</span> <span class="toc-text">标识符的概念</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A0%87%E8%AF%86%E7%AC%A6%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99%EF%BC%88%E5%BF%85%E9%A1%BB%E9%81%B5%E5%AE%88%EF%BC%89"><span class="toc-number">3.0.2.</span> <span class="toc-text">标识符的命名规则（必须遵守）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A0%87%E8%AF%86%E7%AC%A6%E5%91%BD%E5%90%8D%E7%9A%84%E8%A7%84%E8%8C%83"><span class="toc-number">3.0.3.</span> <span class="toc-text">标识符命名的规范</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-number">4.</span> <span class="toc-text">关键字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%9D%E7%95%99%E5%AD%97"><span class="toc-number">5.</span> <span class="toc-text">保留字</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D-1"><span class="toc-number">5.0.1.</span> <span class="toc-text">介绍</span></a></li></ol></li></ol></li></ol></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>

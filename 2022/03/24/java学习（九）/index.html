@@ -1,0 +1,133 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="John Doe"><meta name="renderer" content="webkit"><meta name="copyright" content="John Doe"><meta name="keywords" content="Hexo"><meta name="description" content=""><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>java学习（九） · yudupefish Blog</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 6.1.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/cat.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">yudupefish</div><div class="profile-signature">There is a strong wind blowing</div><div class="friends"><div>FRIENDS</div><span><a href="//github.com/yudupefish" target="_black">github</a></span><span><a href="//bilibili.com/?spm_id_from=666.25.b_62696c692d6865616465722d6d.1" target="_black">bilibili</a></span><span><a href="//csdn.net/?spm=1001.2101.3001.4476" target="_black">CSDN</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">yudupefish Blog</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">java学习（九）</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-calendar"></i><span>2022-03-24</span></span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><h2 id="键盘输入"><a href="#键盘输入" class="headerlink" title="键盘输入"></a>键盘输入</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>在编程中，需要接收用户输入的数据，就可以使用键盘输入语句来获取。<strong>Input.java</strong>,需要一个扫描器（对象），就是Scanner</p>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><p>1）导入该类所在包，java.util.*</p>
+<p>2）创建该类对象（声明变量）</p>
+<p>3）调用里面的功能</p>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;<span class="comment">//表示java.util下的Scanner类导入</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">input</span>&#123;</span><br><span class="line">	<span class="comment">//编写一个main方法</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">		<span class="comment">//演示接受用户的输入</span></span><br><span class="line">		<span class="comment">//步骤</span></span><br><span class="line">		<span class="comment">//Scanner类 表示 简单文本扫描器，在java.util包</span></span><br><span class="line">		<span class="comment">//1.引入/导出 Scanner类所在的包</span></span><br><span class="line">		<span class="comment">//2.创建 Scanner 对象， new创建一个对象，体会</span></span><br><span class="line">		<span class="comment">//  myScanner 就是 Scanner类的对象</span></span><br><span class="line">		<span class="type">Scanner</span> <span class="variable">myScanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">		<span class="comment">//3.接受用户的输入,使用 相关的方法</span></span><br><span class="line">		System.out.println(<span class="string">&quot;请输入名字&quot;</span>);</span><br><span class="line"></span><br><span class="line">		<span class="comment">//当程序执行到next是会停止等待用户输入</span></span><br><span class="line">		<span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> myScanner.next();<span class="comment">//表示用户输入字符串</span></span><br><span class="line">		System.out.println(<span class="string">&quot;请输入年龄&quot;</span>);</span><br><span class="line">		<span class="type">int</span> <span class="variable">age</span> <span class="operator">=</span> myScanner.nextInt();<span class="comment">//表示用户输入int</span></span><br><span class="line">		System.out.println(<span class="string">&quot;请输入薪水&quot;</span>);</span><br><span class="line">		<span class="type">double</span> <span class="variable">sal</span> <span class="operator">=</span> myScanner.nextDouble();<span class="comment">//表示用户输入double</span></span><br><span class="line">		System.out.println(<span class="string">&quot;人的信息如下：&quot;</span>);</span><br><span class="line">		System.out.println(<span class="string">&quot;名字：&quot;</span> + name + <span class="string">&quot;\n年龄：&quot;</span> + age + <span class="string">&quot;\n薪水：&quot;</span> + sal);</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="四种进制介绍"><a href="#四种进制介绍" class="headerlink" title="四种进制介绍"></a>四种进制介绍</h3><h4 id="对于整数，有四种表示方式"><a href="#对于整数，有四种表示方式" class="headerlink" title="对于整数，有四种表示方式"></a>对于整数，有四种表示方式</h4><p>1.二进制：0，1，满2进1，以0b或者0B开头。</p>
+<p>2.十进制：0-9，满10进1。</p>
+<p>3.八进制：0-7，满8进1，以数字0开头。</p>
+<p>4.十六进制：0-9及A（10）-F（15)，满16进1，以0x或者0X开头表示。此处的A-F不区分大小写。</p>
+<p><img src="F:\java\笔记\进制表.png" alt="进制表"></p>
+<h4 id="二进制转换成十进制"><a href="#二进制转换成十进制" class="headerlink" title="二进制转换成十进制"></a>二进制转换成十进制</h4><h5 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h5><p>从最低位（右边）开始，将每个位上的数提取出来，乘以2的(位数-1)次方，然后求和</p>
+<h5 id="例子-1"><a href="#例子-1" class="headerlink" title="例子"></a>例子</h5><p>？将0b1011转成十进制</p>
+<p>0b1011（从右到左）&#x3D;1×2的（1-1）次方＋1×2的（2-1）次方+0×2的（3-1）次方+1×2的（4-1）次方</p>
+<h4 id="八进制转换成十进制"><a href="#八进制转换成十进制" class="headerlink" title="八进制转换成十进制"></a>八进制转换成十进制</h4><h5 id="规则-1"><a href="#规则-1" class="headerlink" title="规则"></a>规则</h5><p>从最低位（右边）开始，将每个位上的数提取出来，乘以8的(位数-1)次方，然后求和</p>
+<h4 id="十六进制转换成10进制"><a href="#十六进制转换成10进制" class="headerlink" title="十六进制转换成10进制"></a>十六进制转换成10进制</h4><h5 id="规则-2"><a href="#规则-2" class="headerlink" title="规则"></a>规则</h5><p>从最低位（右边）开始，将每个位上的数提取出来，乘以16的(位数-1)次方，然后求和</p>
+<h4 id="十进制转换成二进制"><a href="#十进制转换成二进制" class="headerlink" title="十进制转换成二进制"></a>十进制转换成二进制</h4><h5 id="规则-3"><a href="#规则-3" class="headerlink" title="规则"></a>规则</h5><p>将该数不断除以2，直到商为0为止，然后将每步的到的余数倒过来，就是对应的二进制。</p>
+<h5 id="例如"><a href="#例如" class="headerlink" title="例如"></a>例如</h5><p>？将34转换成二进制（一个字节需要8位，需要在前面加2个0）最后的得数为00100010<img src="F:\java\笔记\十进制转二进制.png" alt="十进制转二进制"></p>
+<h4 id="十进制转换成八进制"><a href="#十进制转换成八进制" class="headerlink" title="十进制转换成八进制"></a>十进制转换成八进制</h4><h5 id="规则-4"><a href="#规则-4" class="headerlink" title="规则"></a>规则</h5><p>将该数不断除以8，直到商为0为止，然后将每步的到的余数倒过来，就是对应的八进制。</p>
+<h4 id="十进制转换成十六进制"><a href="#十进制转换成十六进制" class="headerlink" title="十进制转换成十六进制"></a>十进制转换成十六进制</h4><h5 id="规则-5"><a href="#规则-5" class="headerlink" title="规则"></a>规则</h5><p>将该数不断除以16，直到商为0为止，然后将每步的到的余数倒过来，就是对应的十六进制。 </p>
+<h4 id="二进制转换成八进制"><a href="#二进制转换成八进制" class="headerlink" title="二进制转换成八进制"></a>二进制转换成八进制</h4><h5 id="规则-6"><a href="#规则-6" class="headerlink" title="规则"></a>规则</h5><p>从低位开始，将二进制数每三位一组，转换成对应的八进制数即可</p>
+<h5 id="例子-2"><a href="#例子-2" class="headerlink" title="例子"></a>例子</h5><p>？将0b11010101转换成八进制</p>
+<p>0b11（3）010（2）101（5）&#x3D;&gt; 0325</p>
+<h4 id="二进制转换成十六进制"><a href="#二进制转换成十六进制" class="headerlink" title="二进制转换成十六进制"></a>二进制转换成十六进制</h4><h5 id="规则-7"><a href="#规则-7" class="headerlink" title="规则"></a>规则</h5><p>从低位开始，将二进制数每四位一组，转换成对应的十六进制数即可</p>
+<h5 id="例子-3"><a href="#例子-3" class="headerlink" title="例子"></a>例子</h5><p>0b1101（D）0101（5）&#x3D;0xD5</p>
+<h4 id="八进制转换成二进制"><a href="#八进制转换成二进制" class="headerlink" title="八进制转换成二进制"></a>八进制转换成二进制</h4><h5 id="规则-8"><a href="#规则-8" class="headerlink" title="规则"></a>规则</h5><p>将八进制每1位，转换成对应的一个3位的二进制数即可。</p>
+<h5 id="例子-4"><a href="#例子-4" class="headerlink" title="例子"></a>例子</h5><p>02（010）3（011）7（111）&#x3D;0b010011111</p>
+<h4 id="十六进制转换成二进制"><a href="#十六进制转换成二进制" class="headerlink" title="十六进制转换成二进制"></a>十六进制转换成二进制</h4><h5 id="规则-9"><a href="#规则-9" class="headerlink" title="规则"></a>规则</h5><p>将十六进制每1位，转换成对应的一个4位的二进制数即可。</p>
+<h5 id="例子-5"><a href="#例子-5" class="headerlink" title="例子"></a>例子</h5><p>0x2(0010)3(0011)B(1011)</p>
+</article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="http://example.com">John Doe</a></p><p> <span>Link:  </span><a href="http://example.com/2022/03/24/java%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B9%9D%EF%BC%89/">http://example.com/2022/03/24/java%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B9%9D%EF%BC%89/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-nd/3.0">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="prevSlogan" href="/2022/03/24/java%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%8D%81%EF%BC%89/" title="java学习（十）"><span>< PreviousPost</span><br><span class="prevTitle">java学习（十）</span></a><a class="nextSlogan" href="/2022/03/24/java%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%85%AB%EF%BC%89/" title="java学习（八）"><span>NextPost ></span><br><span class="nextTitle">java学习（八）</span></a><div class="clear"></div></div><div id="comment"></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span> | theme </span><a target="_blank" rel="noopener" href="https://github.com/Longlongyu/hexo-theme-Cxo"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%94%AE%E7%9B%98%E8%BE%93%E5%85%A5"><span class="toc-number">1.</span> <span class="toc-text">键盘输入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.2.</span> <span class="toc-text">步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90"><span class="toc-number">1.3.</span> <span class="toc-text">例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E7%A7%8D%E8%BF%9B%E5%88%B6%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.4.</span> <span class="toc-text">四种进制介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%B9%E4%BA%8E%E6%95%B4%E6%95%B0%EF%BC%8C%E6%9C%89%E5%9B%9B%E7%A7%8D%E8%A1%A8%E7%A4%BA%E6%96%B9%E5%BC%8F"><span class="toc-number">1.4.1.</span> <span class="toc-text">对于整数，有四种表示方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%E6%88%90%E5%8D%81%E8%BF%9B%E5%88%B6"><span class="toc-number">1.4.2.</span> <span class="toc-text">二进制转换成十进制</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A7%84%E5%88%99"><span class="toc-number">1.4.2.1.</span> <span class="toc-text">规则</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90-1"><span class="toc-number">1.4.2.2.</span> <span class="toc-text">例子</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%AB%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%E6%88%90%E5%8D%81%E8%BF%9B%E5%88%B6"><span class="toc-number">1.4.3.</span> <span class="toc-text">八进制转换成十进制</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A7%84%E5%88%99-1"><span class="toc-number">1.4.3.1.</span> <span class="toc-text">规则</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%E6%88%9010%E8%BF%9B%E5%88%B6"><span class="toc-number">1.4.4.</span> <span class="toc-text">十六进制转换成10进制</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A7%84%E5%88%99-2"><span class="toc-number">1.4.4.1.</span> <span class="toc-text">规则</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%81%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%E6%88%90%E4%BA%8C%E8%BF%9B%E5%88%B6"><span class="toc-number">1.4.5.</span> <span class="toc-text">十进制转换成二进制</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A7%84%E5%88%99-3"><span class="toc-number">1.4.5.1.</span> <span class="toc-text">规则</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BE%8B%E5%A6%82"><span class="toc-number">1.4.5.2.</span> <span class="toc-text">例如</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%81%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%E6%88%90%E5%85%AB%E8%BF%9B%E5%88%B6"><span class="toc-number">1.4.6.</span> <span class="toc-text">十进制转换成八进制</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A7%84%E5%88%99-4"><span class="toc-number">1.4.6.1.</span> <span class="toc-text">规则</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%81%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%E6%88%90%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6"><span class="toc-number">1.4.7.</span> <span class="toc-text">十进制转换成十六进制</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A7%84%E5%88%99-5"><span class="toc-number">1.4.7.1.</span> <span class="toc-text">规则</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%E6%88%90%E5%85%AB%E8%BF%9B%E5%88%B6"><span class="toc-number">1.4.8.</span> <span class="toc-text">二进制转换成八进制</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A7%84%E5%88%99-6"><span class="toc-number">1.4.8.1.</span> <span class="toc-text">规则</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90-2"><span class="toc-number">1.4.8.2.</span> <span class="toc-text">例子</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%E6%88%90%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6"><span class="toc-number">1.4.9.</span> <span class="toc-text">二进制转换成十六进制</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A7%84%E5%88%99-7"><span class="toc-number">1.4.9.1.</span> <span class="toc-text">规则</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90-3"><span class="toc-number">1.4.9.2.</span> <span class="toc-text">例子</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%AB%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%E6%88%90%E4%BA%8C%E8%BF%9B%E5%88%B6"><span class="toc-number">1.4.10.</span> <span class="toc-text">八进制转换成二进制</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A7%84%E5%88%99-8"><span class="toc-number">1.4.10.1.</span> <span class="toc-text">规则</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90-4"><span class="toc-number">1.4.10.2.</span> <span class="toc-text">例子</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%E6%88%90%E4%BA%8C%E8%BF%9B%E5%88%B6"><span class="toc-number">1.4.11.</span> <span class="toc-text">十六进制转换成二进制</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A7%84%E5%88%99-9"><span class="toc-number">1.4.11.1.</span> <span class="toc-text">规则</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90-5"><span class="toc-number">1.4.11.2.</span> <span class="toc-text">例子</span></a></li></ol></li></ol></li></ol></li></ol></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
